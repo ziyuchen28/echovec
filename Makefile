@@ -1,7 +1,7 @@
 BUILD_DIR ?= build
 CMAKE_BUILD_TYPE ?= RelWithDebInfo
 
-.PHONY: all configure build test bench clean distclean
+.PHONY: all configure build test test_verbose bench_scalar bench clean distclean
 
 all: build
 
@@ -14,8 +14,18 @@ build: configure
 test: build
 	ctest --test-dir $(BUILD_DIR) --output-on-failure
 
+
+test_verbose: build
+	ctest --test-dir $(BUILD_DIR) --output-on-failure -V
+
+
+bench_scalar: build
+	./$(BUILD_DIR)/bench_dot --dim 1536 --iters 200000 --warmup 1000 --impl scalar 
+
+
 bench: build
-	./$(BUILD_DIR)/bench_dot --dim 1536 --iters 200000 --warmup 1000
+	./$(BUILD_DIR)/bench_dot --dim 1536 --iters 200000 --warmup 1000 --impl auto
+
 
 clean:
 	cmake --build $(BUILD_DIR) --target clean
