@@ -1,4 +1,3 @@
-#include "vecstore/vecmath/dot.h"
 
 #include <cstddef>
 #include <immintrin.h>
