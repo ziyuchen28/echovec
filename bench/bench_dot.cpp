@@ -31,6 +31,7 @@ vecstore::vecmath::DotImpl parse_impl(const std::string &s)
     if (s == "avx2") {
         return DotImpl::Avx2;
     }
+
     return DotImpl::Auto;
 }
 

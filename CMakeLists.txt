@@ -38,8 +38,7 @@ endif()
 
 if (VECSTORE_X86_FAMILY)
     target_sources(vecstore_vecmath PRIVATE
-        src/vecmath/dot_x86_avx2_baseline.cpp
-        src/vecmath/dot_x86_avx2_unrolled.cpp
+        src/vecmath/dot_x86_avx2.cpp
     )
 
     # -D flag
@@ -49,12 +48,7 @@ if (VECSTORE_X86_FAMILY)
 
     if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         set_source_files_properties(
-            src/vecmath/dot_x86_avx2_baseline.cpp
-            PROPERTIES
-            COMPILE_OPTIONS "-mavx2"
-        )
-        set_source_files_properties(
-            src/vecmath/dot_x86_avx2_unrolled.cpp
+            src/vecmath/dot_x86_avx2.cpp
             PROPERTIES
             COMPILE_OPTIONS "-mavx2"
         )

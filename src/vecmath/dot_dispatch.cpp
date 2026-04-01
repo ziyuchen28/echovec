@@ -5,7 +5,7 @@ namespace vecstore::vecmath {
 
 #if defined(VECSTORE_BUILD_X86_AVX2)
 // float dot_x86_avx2_baseline(const float *a, const float *b, std::size_t n) noexcept;
-float dot_x86_avx2_unrolled(const float *a, const float *b, std::size_t n) noexcept;
+float dot_x86_avx2(const float *a, const float *b, std::size_t n) noexcept;
 #endif
 
 
@@ -53,8 +53,7 @@ DotFn resolve_dot_function(DotImpl impl) noexcept
     switch (resolved) {
         case DotImpl::Avx2: {
 #if defined(VECSTORE_BUILD_X86_AVX2)
-            return &dot_x86_avx2_unrolled;
-            // return &dot_x86_avx2_baseline;
+            return &dot_x86_avx2;
 #else
             return &dot_scalar;
 #endif
