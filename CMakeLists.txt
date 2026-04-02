@@ -18,6 +18,7 @@ endif()
 add_library(vecstore_vecmath STATIC
     src/vecmath/dot_scalar.cpp
     src/vecmath/dot_dispatch.cpp
+    src/vecmath/normalize.cpp
 )
 add_library(vecstore::vecmath ALIAS vecstore_vecmath)
 target_include_directories(vecstore_vecmath PUBLIC
