@@ -98,10 +98,18 @@ add_test(NAME vecstore_test_search_flat COMMAND test_search_flat)
 
 # benchmark
 if (VECSTORE_BUILD_BENCH)
+
     add_executable(bench_dot
         bench/bench_dot.cpp
     )
     target_link_libraries(bench_dot PRIVATE vecstore::vecmath)
+
+
+    add_executable(bench_search_flat
+        bench/bench_search_flat.cpp
+    )
+    target_link_libraries(bench_search_flat PRIVATE vecstore::flat)
+
 endif()
 
 

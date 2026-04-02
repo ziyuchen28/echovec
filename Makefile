@@ -1,7 +1,10 @@
 BUILD_DIR ?= build
 CMAKE_BUILD_TYPE ?= RelWithDebInfo
 
-.PHONY: all configure build test test_verbose bench_scalar bench clean
+DOT_IMPL ?= auto
+# auto, avx2, scalar
+
+.PHONY: all configure build test test-verbose bench-dot bench-search-flat clean
 
 all: build
 
@@ -14,18 +17,14 @@ build: configure
 test: build
 	ctest --test-dir $(BUILD_DIR) --output-on-failure
 
-
-test_verbose: build
+test-verbose: build
 	ctest --test-dir $(BUILD_DIR) --output-on-failure -V
 
+bench-dot: build
+	./$(BUILD_DIR)/bench_dot --dim 1536 --iters 10000000 --warmup 10000 --impl $(DOT_IMPL)
 
-bench_scalar: build
-	./$(BUILD_DIR)/bench_dot --dim 1536 --iters 10000000  --warmup 10000 --impl scalar 
-
-
-bench: build
-	./$(BUILD_DIR)/bench_dot --dim 1536 --iters 10000000 --warmup 10000 --impl auto
-
+bench-search-flat: build
+	./$(BUILD_DIR)/bench_search_flat --count 20000 --dim 1536 --k 10 --iters 100 --warmup 3 --impl $(DOT_IMPL)
 
 clean:
 	rm -rf $(BUILD_DIR)
