@@ -44,10 +44,10 @@ int main(int argc, char **argv)
         static_cast<std::size_t>(std::stoull(get_arg(argc, argv, "--dim", "1536")));
 
     const std::size_t iters =
-        static_cast<std::size_t>(std::stoull(get_arg(argc, argv, "--iters", "200000")));
+        static_cast<std::size_t>(std::stoull(get_arg(argc, argv, "--iters", "1000000")));
 
     const std::size_t warmup =
-        static_cast<std::size_t>(std::stoull(get_arg(argc, argv, "--warmup", "1000")));
+        static_cast<std::size_t>(std::stoull(get_arg(argc, argv, "--warmup", "10000")));
 
     const auto requested_impl =
         parse_impl(get_arg(argc, argv, "--impl", "auto"));
@@ -98,6 +98,7 @@ int main(int argc, char **argv)
     std::cout << "seconds=" << sec << "\n";
     std::cout << "ns_per_op=" << ns_per_op << "\n";
     std::cout << "ops_per_sec=" << ops_per_sec << "\n";
+    // vector is very hot in cache, so this number don't reflect throughput pulling from ram
     std::cout << "effective_gb_per_sec=" << gb_per_sec << "\n";
     std::cout << "sink=" << sink << "\n";
 
